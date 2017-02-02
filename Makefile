@@ -1,4 +1,4 @@
-.PHONY: test
+.PHONY: help run build tarball deploy-demo test test-watch install
 
 help:
 	@grep -P '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
@@ -8,6 +8,9 @@ run: ## Run the webpack-dev-server
 
 build: ## Webpack build the project
 	./node_modules/webpack/bin/webpack.js -p --optimize-minimize --optimize-occurence-order --optimize-dedupe --progress --devtool source-map
+
+tarball: # Create a release tarball
+	tar czf release.tar.gz CHANGELOG LICENSE README.md package.json style.css dist/
 
 deploy-demo: build ## Deploy the demo at http://marmelab.com/EventDrops/
 	mkdir -p demo/dist/
