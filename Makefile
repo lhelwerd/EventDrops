@@ -10,7 +10,10 @@ build: ## Webpack build the project
 	./node_modules/webpack/bin/webpack.js -p --optimize-minimize --optimize-occurence-order --optimize-dedupe --progress --devtool source-map
 
 tarball: # Create a release tarball
-	tar czf release.tar.gz CHANGELOG LICENSE README.md package.json style.css dist/
+	mkdir EventDrops
+	cp -r CHANGELOG LICENSE README.md package.json style.css dist EventDrops/
+	tar czf release.tar.gz EventDrops
+	rm -rf EventDrops
 
 deploy-demo: build ## Deploy the demo at http://marmelab.com/EventDrops/
 	mkdir -p demo/dist/
